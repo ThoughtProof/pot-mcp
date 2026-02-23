@@ -1,0 +1,29 @@
+{
+  "name": "pot-mcp",
+  "version": "0.1.0",
+  "description": "MCP server for pot-sdk — verify any AI output via multi-model adversarial consensus",
+  "type": "module",
+  "license": "MIT",
+  "bin": {
+    "pot-mcp": "./dist/index.js"
+  },
+  "main": "./dist/index.js",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "pot-sdk": "^0.1.0",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/node": "^25.3.0",
+    "typescript": "^5.3.0"
+  }
+}
