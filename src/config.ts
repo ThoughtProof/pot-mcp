@@ -14,22 +14,20 @@ export function resolveKeys(override?: ApiKeys): ApiKeys {
   };
 }
 
+// pot-sdk expects apiKeys keyed by provider name: { anthropic, xai, deepseek, moonshot }
 export function buildApiKeyRecord(keys: ApiKeys): Record<string, string> {
   const record: Record<string, string> = {};
-  if (keys.anthropic) record['ANTHROPIC_API_KEY'] = keys.anthropic;
-  if (keys.xai) record['XAI_API_KEY'] = keys.xai;
-  if (keys.deepseek) record['DEEPSEEK_API_KEY'] = keys.deepseek;
-  if (keys.moonshot) record['MOONSHOT_API_KEY'] = keys.moonshot;
+  if (keys.anthropic) record['anthropic'] = keys.anthropic;
+  if (keys.xai) record['xai'] = keys.xai;
+  if (keys.deepseek) record['deepseek'] = keys.deepseek;
+  if (keys.moonshot) record['moonshot'] = keys.moonshot;
   return record;
 }
 
 export function validateConfig(keys: ApiKeys): string | null {
+  // basic tier only needs anthropic; pro tier benefits from multiple generators
   if (!keys.anthropic) {
-    return 'ANTHROPIC_API_KEY required for critic and synthesizer.';
-  }
-  const totalProviders = [keys.anthropic, keys.xai, keys.deepseek, keys.moonshot].filter(Boolean).length;
-  if (totalProviders < 2) {
-    return 'At least 2 API keys required for multi-model verification. Set XAI_API_KEY, DEEPSEEK_API_KEY, or MOONSHOT_API_KEY in addition to ANTHROPIC_API_KEY.';
+    return 'ANTHROPIC_API_KEY is required (used as generator, critic, and synthesizer).';
   }
   return null;
 }

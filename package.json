@@ -1,6 +1,6 @@
 {
   "name": "pot-mcp",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "MCP server for pot-sdk — verify any AI output via multi-model adversarial consensus",
   "type": "module",
   "license": "MIT",
