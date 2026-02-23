@@ -24,12 +24,12 @@ export function buildApiKeyRecord(keys: ApiKeys): Record<string, string> {
 }
 
 export function validateConfig(keys: ApiKeys): string | null {
-  const generatorCount = [keys.xai, keys.deepseek, keys.moonshot].filter(Boolean).length;
-  if (generatorCount < 2) {
-    return 'At least 2 generator API keys required (XAI_API_KEY, DEEPSEEK_API_KEY, MOONSHOT_API_KEY).';
-  }
   if (!keys.anthropic) {
     return 'ANTHROPIC_API_KEY required for critic and synthesizer.';
+  }
+  const totalProviders = [keys.anthropic, keys.xai, keys.deepseek, keys.moonshot].filter(Boolean).length;
+  if (totalProviders < 2) {
+    return 'At least 2 API keys required for multi-model verification. Set XAI_API_KEY, DEEPSEEK_API_KEY, or MOONSHOT_API_KEY in addition to ANTHROPIC_API_KEY.';
   }
   return null;
 }
